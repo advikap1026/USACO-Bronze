@@ -1,0 +1,89 @@
+<html>
+<head>
+<title>diamond.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #a9b7c6;}
+.s1 { color: #808080;}
+.s2 { color: #cc7832;}
+.s3 { color: #6a8759;}
+.s4 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+diamond.java</font>
+</center></td></tr></table>
+<pre>
+<span class="s1">// &quot;Diamond Collector&quot;</span>
+<span class="s1">// http://usaco.org/index.php?page=viewproblem2&amp;cpid=639</span>
+<span class="s1">/* 
+    1. read the diamonds size and store them in an array 
+    2. read and store k 
+    3. Store the first number in the diamond size array as the size we will compare the rest of the diamonds to 
+    4. Run through a for loop and check if the diamonds are within the range of k, 
+    5. if they are, add it to the total 
+    6. print out the total 
+ */</span>
+
+<span class="s2">import </span><span class="s0">java.util.*</span><span class="s2">;</span>
+<span class="s2">import </span><span class="s0">java.io.*</span><span class="s2">;</span>
+<span class="s2">import </span><span class="s0">java.lang.*</span><span class="s2">;</span>
+
+<span class="s2">public class </span><span class="s0">diamond {</span>
+    <span class="s2">static final </span><span class="s0">String FILE_NAME = </span><span class="s3">&quot;diamond&quot;</span><span class="s2">;</span>
+
+    <span class="s2">public static void </span><span class="s0">main(String[] args) </span><span class="s2">throws </span><span class="s0">FileNotFoundException {</span>
+        <span class="s1">// INPUT //</span>
+        <span class="s1">// TODO: Complete this section!</span>
+        <span class="s0">Scanner in = </span><span class="s2">new </span><span class="s0">Scanner(</span><span class="s2">new </span><span class="s0">File(FILE_NAME + </span><span class="s3">&quot;.in&quot;</span><span class="s0">))</span><span class="s2">;</span>
+        <span class="s2">int </span><span class="s0">n = in.nextInt()</span><span class="s2">;</span>
+        <span class="s2">int </span><span class="s0">k = in.nextInt()</span><span class="s2">;</span>
+        <span class="s2">int</span><span class="s0">[] sizes = </span><span class="s2">new int</span><span class="s0">[n]</span><span class="s2">;</span>
+        <span class="s2">for</span><span class="s0">(</span><span class="s2">int </span><span class="s0">i = </span><span class="s4">0</span><span class="s2">; </span><span class="s0">i&lt; n</span><span class="s2">; </span><span class="s0">i++){</span>
+            <span class="s0">sizes[i] = in.nextInt()</span><span class="s2">;</span>
+        <span class="s0">}</span>
+        <span class="s0">in.close()</span><span class="s2">;</span>
+
+        <span class="s1">// CALCULATION //</span>
+        <span class="s2">int </span><span class="s0">shelfIndex</span><span class="s2">;</span>
+        <span class="s2">int </span><span class="s0">result = </span><span class="s4">0</span><span class="s2">;</span>
+        <span class="s2">int</span><span class="s0">[] shelfArray = </span><span class="s2">new int</span><span class="s0">[n]</span><span class="s2">;</span>
+        <span class="s2">for</span><span class="s0">(</span><span class="s2">int </span><span class="s0">i = </span><span class="s4">0</span><span class="s2">; </span><span class="s0">i&lt;n</span><span class="s2">; </span><span class="s0">i++){</span>
+            <span class="s0">shelfIndex = </span><span class="s4">0</span><span class="s2">;</span>
+            <span class="s0">shelfArray[i] = sizes[i]</span><span class="s2">;</span>
+            <span class="s2">for</span><span class="s0">(</span><span class="s2">int </span><span class="s0">j = </span><span class="s4">0</span><span class="s2">; </span><span class="s0">j&lt;n</span><span class="s2">; </span><span class="s0">j++){</span>
+                <span class="s2">boolean </span><span class="s0">doesItWork = </span><span class="s2">true;</span>
+                <span class="s2">if</span><span class="s0">(i!=j){</span>
+                    <span class="s2">for</span><span class="s0">(</span><span class="s2">int </span><span class="s0">l = </span><span class="s4">0</span><span class="s2">; </span><span class="s0">l&lt;shelfIndex</span><span class="s2">; </span><span class="s0">l++){</span>
+                        <span class="s2">if</span><span class="s0">(Math.abs(sizes[j]-shelfArray[l])&gt;k){</span>
+                            <span class="s0">doesItWork = </span><span class="s2">false;</span>
+                            <span class="s2">break;</span>
+                        <span class="s0">}</span>
+                    <span class="s0">}</span>
+                <span class="s0">}</span>
+                <span class="s2">if</span><span class="s0">(doesItWork == </span><span class="s2">true</span><span class="s0">){</span>
+                    <span class="s0">shelfIndex++</span><span class="s2">;</span>
+                    <span class="s0">shelfArray[shelfIndex] = sizes[j]</span><span class="s2">;</span>
+
+                <span class="s0">}</span>
+
+            <span class="s0">}</span>
+            <span class="s2">if</span><span class="s0">(shelfIndex &gt; result){</span>
+                <span class="s0">result = shelfIndex</span><span class="s2">;</span>
+            <span class="s0">}</span>
+        <span class="s0">}</span>
+
+
+        <span class="s1">// OUTPUT //</span>
+        <span class="s0">PrintWriter out = </span><span class="s2">new </span><span class="s0">PrintWriter(</span><span class="s2">new </span><span class="s0">File(FILE_NAME + </span><span class="s3">&quot;.out&quot;</span><span class="s0">))</span><span class="s2">;</span>
+        <span class="s0">out.println(result)</span><span class="s2">;</span>
+        <span class="s0">System.out.println(result)</span><span class="s2">;</span>
+        <span class="s0">out.close()</span><span class="s2">;</span>
+    <span class="s0">}</span>
+<span class="s0">}</span>
+</pre>
+</body>
+</html>

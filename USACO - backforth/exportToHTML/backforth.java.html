@@ -1,0 +1,89 @@
+<html>
+<head>
+<title>backforth.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #6897bb;}
+.s4 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+backforth.java</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">java.util.*</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.io.*</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">backforth {</span>
+    <span class="s0">public static void </span><span class="s1">main(String[] args) </span><span class="s0">throws </span><span class="s1">Exception {</span>
+        <span class="s1">Scanner in = </span><span class="s0">new </span><span class="s1">Scanner(</span><span class="s0">new </span><span class="s1">File(</span><span class="s2">&quot;backforth.in&quot;</span><span class="s1">))</span><span class="s0">;</span>
+        <span class="s1">PrintWriter out = </span><span class="s0">new </span><span class="s1">PrintWriter(</span><span class="s0">new </span><span class="s1">File(</span><span class="s2">&quot;backforth.out&quot;</span><span class="s1">))</span><span class="s0">;</span>
+
+        <span class="s0">int</span><span class="s1">[] a = </span><span class="s0">new int</span><span class="s1">[</span><span class="s3">10</span><span class="s1">]</span><span class="s0">;</span>
+        <span class="s0">int</span><span class="s1">[] b = </span><span class="s0">new int</span><span class="s1">[</span><span class="s3">11</span><span class="s1">]</span><span class="s0">;</span>
+        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">10</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">a[i] = in.nextInt()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s3">10</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">b[i] = in.nextInt()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s4">//          t = 3</span>
+        <span class="s4">// A: 1 1 1 1 1 1 1 1 1 2</span>
+
+        <span class="s4">// lower bound of reading in A: 800</span>
+        <span class="s4">// upper bound of reading in A: 1200</span>
+
+        <span class="s4">// mark reading[x] as true when we encounter</span>
+        <span class="s4">// a reading of x</span>
+        <span class="s0">boolean</span><span class="s1">[] readings = </span><span class="s0">new boolean</span><span class="s1">[</span><span class="s3">1200</span><span class="s1">]</span><span class="s0">;</span>
+
+        <span class="s4">// t is the index chosen for Tuesday</span>
+        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">t = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">t &lt; </span><span class="s3">10</span><span class="s0">; </span><span class="s1">t++) {</span>
+            <span class="s1">b[</span><span class="s3">10</span><span class="s1">] = a[t]</span><span class="s0">;</span>
+            <span class="s0">int </span><span class="s1">T = a[t]</span><span class="s0">;</span>
+
+            <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">w = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">w &lt; </span><span class="s3">11</span><span class="s0">; </span><span class="s1">w++) {</span>
+                <span class="s1">a[t] = b[w]</span><span class="s0">;</span>
+                <span class="s0">int </span><span class="s1">W = b[w]</span><span class="s0">;</span>
+
+                <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">h = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">h &lt; </span><span class="s3">10</span><span class="s0">; </span><span class="s1">h++) {</span>
+                    <span class="s1">b[w] = a[h]</span><span class="s0">;</span>
+                    <span class="s0">int </span><span class="s1">H = a[h]</span><span class="s0">;</span>
+
+                    <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">f = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">f &lt; </span><span class="s3">11</span><span class="s0">; </span><span class="s1">f++) {</span>
+                        <span class="s1">a[h] = b[f]</span><span class="s0">;</span>
+                        <span class="s0">int </span><span class="s1">F = b[f]</span><span class="s0">;</span>
+
+                        <span class="s0">int </span><span class="s1">reading = </span><span class="s3">1000 </span><span class="s1">- T + W - H + F</span><span class="s0">;</span>
+                        <span class="s1">readings[reading] = </span><span class="s0">true;</span>
+
+                        <span class="s1">b[f] = a[h]</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+                    <span class="s1">a[h] = b[w]</span><span class="s0">;</span>
+                <span class="s1">}</span>
+                <span class="s1">b[w] = a[t]</span><span class="s0">;</span>
+            <span class="s1">}</span>
+            <span class="s1">a[t] = b[</span><span class="s3">10</span><span class="s1">]</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">int </span><span class="s1">answer = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s0">for</span><span class="s1">(</span><span class="s0">boolean </span><span class="s1">bb : readings) {</span>
+            <span class="s0">if</span><span class="s1">(bb) {</span>
+                <span class="s1">answer++</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+
+        <span class="s1">out.println(answer)</span><span class="s0">;</span>
+
+        <span class="s1">in.close()</span><span class="s0">;</span>
+        <span class="s1">out.close()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span></pre>
+</body>
+</html>
